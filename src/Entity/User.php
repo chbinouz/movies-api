@@ -17,8 +17,13 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+// Définition de l'entité User avec ses methodes Post, Put, Delete, Get, GetCollection (pour la collection d'utilisateurs)
+// et la définition de la relation avec l'entité Favori
+// Les annotations ApiResource permettent de définir les opérations possibles sur l'entité
 #[ApiResource(
     operations: [
+        // Définition des opérations possibles sur l'entité User avec les restrictions de sécurité
+        // La méthode MeController::me() est utilisée pour récupérer les données de l'utilisateur connecté
         new GetCollection(
             uriTemplate: '/me',
             controller: MeController::class,
@@ -36,6 +41,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("ROLE_ADMIN")',
         ),
     ],
+    // Définition des groupes de sérialisation pour l'entité User
     normalizationContext: ['groups' => ['user:read']],
 )]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -45,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'favori:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]

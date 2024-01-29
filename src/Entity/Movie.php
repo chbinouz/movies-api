@@ -17,9 +17,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+// Définition de l'entité Movie avec ses methodes Post, Put, Delete, Get, GetCollection (pour la collection de films)
+// et la définition de la relation avec l'entité Favori
+// Les annotations ApiResource permettent de définir les opérations possibles sur l'entité
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ApiResource(
     operations: [
+        // Définition des opérations possibles sur l'entité Movie avec les restrictions de sécurité
         new GetCollection(
             security: 'is_granted("ROLE_USER")',
         ),
@@ -37,7 +41,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
     ]
 )]
-#[ApiFilter(SearchFilter::class, properties: ['id' => 'exact', '!favoris.owner.id' => 'exact'])]
+#[ApiFilter(SearchFilter::class, properties: ['id' => 'exact', '!favoris.owner.id' => 'exact', 'title' => 'partial'])]
 class Movie
 {
     #[ORM\Id]

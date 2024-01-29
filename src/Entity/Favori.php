@@ -6,16 +6,19 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\FavoriRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+// Définition de l'entité Favori avec ses methodes Post, Put, Delete, Get, GetCollection (pour la collection de favoris)
+// et la définition de la relation avec les entités User et Movie
+// Les annotations ApiResource permettent de définir les opérations possibles sur l'entité
 #[ORM\Entity(repositoryClass: FavoriRepository::class)]
 #[ApiResource(
     operations: [
+        // Définition des opérations possibles sur l'entité Favori avec les restrictions de sécurité
         new GetCollection(
             security: 'is_granted("ROLE_USER")',
         ),
@@ -31,28 +34,30 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Get(
             security: 'is_granted("ROLE_USER")',
         ),
-    ]
+    ],
+    normalizationContext: ['groups' => ['favori:read']],
 )]
 class Favori
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'favori:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'favori:read'])]
     private ?int $rank = null;
 
     #[ORM\ManyToOne(inversedBy: 'favoris')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $owner = null;
+    #[Groups(['favori:read'])]
+    private ?User $owner = null; // Relation avec l'entité User
 
     #[ORM\ManyToOne(inversedBy: 'favoris')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['user:read'])]
-    private ?Movie $movie = null;
+    private ?Movie $movie = null; // Relation avec l'entité Movie
 
     public function getId(): ?int
     {

@@ -1,0 +1,4 @@
+
+d	php:S1192-"JDefine a constant instead of duplicating this literal "user:read" 3 times.(ûôÁØøÿÿÿÿ
+r	php:S1192"XDefine a constant instead of duplicating this literal "is_granted("ROLE_USER")" 5 times.(¸Ññßøÿÿÿÿ
+m	php:S1192&"LDefine a constant instead of duplicating this literal "favori:read" 4 times.(ÔşÍÇşÿÿÿÿ8ãÁÉêĞ1

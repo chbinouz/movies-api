@@ -1,0 +1,5 @@
+
+kphp:S103"KSplit this 122 characters long line (which is greater than 120 authorized).(±—À–ýÿÿÿÿ8¥¼ì‰Ó1
+d	php:S1192-"JDefine a constant instead of duplicating this literal "user:read" 7 times.(»ºö¿øÿÿÿÿ
+n	php:S1192!"YDefine a constant instead of duplicating this literal "is_granted("ROLE_ADMIN")" 3 times.(ëÆ„¥
+J	php:S1066Ì"/Merge this if statement with the enclosing one.(¼žÓÞþÿÿÿÿ
