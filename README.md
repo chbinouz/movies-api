@@ -86,9 +86,12 @@ Otherwise, an error will be raised to prevent you from overwriting your keys acc
 
 ## Running project:
 
-#### Without VHost:
 - Go to [Symfony CLI](https://symfony.com/download) page and follow instruction for your OS
 - Then, run:
 ```bash
 symfony server:start
 ```
+
+## To add Admin User
+- Create User in subscription page `/sinup`
+- Go to the database and change the role of the user in the `User` table to `["ROLE_ADMIN"]`
